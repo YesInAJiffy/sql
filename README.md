@@ -222,10 +222,15 @@ FROM employee
 INNER JOIN department ON
 employee.DepartmentID = department.DepartmentID;
 
-**Remember the word inner is default and not mandatory**
 
 SELECT employee.LastName, employee.DepartmentID, department.DepartmentName , vehicle.Make, vehicle.Registration
 FROM employee 
 INNER JOIN department ON
 employee.DepartmentID = department.DepartmentID
 Join Vehicle ON vehicle.employeeID = employee.employeeID;
+
+
+# NOTE
+1. SQLite does not enforce referential integrity in the same way that some other databases do, and you will need to take steps to ensure that your data is consistent and valid. This is different from some other databases, such as MySQL or PostgreSQL, which enforce referential integrity at the database level. In these databases, if you try to insert a row into a table that violates a foreign key constraint, the database will prevent the insertion from occurring.
+2. Remember the word inner in Inner Join is default and not mandatory
+
