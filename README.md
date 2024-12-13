@@ -142,3 +142,84 @@ DROP TABLE order_items;
 
 
 ![Screenshot of a comment on a GitHub issue showing an image, added in the Markdown, of an Octocat smiling and raising a tentacle.](https://myoctocat.com/assets/images/base-octocat.svg)
+
+
+### Underanding of Joins
+
+## Data Creation
+CREATE TABLE department(
+    DepartmentID INT PRIMARY KEY NOT NULL,
+    DepartmentName VARCHAR(20)
+);
+
+CREATE TABLE employee (
+    EmployeeID INT PRIMARY KEY NOT NULL,
+    LastName VARCHAR(20),
+    DepartmentID INT REFERENCES department(DepartmentID)
+);
+
+CREATE TABLE Vehicle (
+    VehicleID INT PRIMARY KEY NOT NULL,
+    Make VARCHAR(20),
+    Registration VARCHAR(20),
+    EmployeeID INT REFERENCES employee(EmployeeID)
+);
+
+
+INSERT INTO department
+VALUES (31, 'Sales'),
+       (33, 'Engineering'),
+       (34, 'Clerical'),
+       (35, 'Arts'),
+       (36, 'Sciences'),
+       (37, 'Music'),
+       (38, 'Robotics'),
+       (39, 'Programming'),
+       (40, 'ML');
+
+INSERT INTO employee
+VALUES (111, 'Rafferty', 31),
+       (112, 'Jones', 33),
+       (113, 'Heisenberg', 33),
+       (114, 'Robinson', 34),
+       (115, 'Smith', 34),
+       (116, 'Rama', 39),
+       (117, 'Shyam', 37),
+       (118, 'Seth', 44),
+       (119, 'Srinath', 34),
+       (120, 'Williams', NULL);
+
+INSERT INTO Vehicle (VehicleID, Make, Registration, EmployeeID)
+VALUES
+    (1, 'Toyota', 'ABC123', 1),
+    (2, 'Honda', 'DEF456', 2),
+    (3, 'Ford', 'GHI789', 3),
+    (4, 'Nissan', 'JKL012', 4),
+    (5, 'Mazda', 'MNO345', 5),
+    (6, 'Subaru', 'PQR678', 6),
+    (7, 'Volkswagen', 'STU901', 7),
+    (8, 'Kia', 'VWX234', 8),
+    (9, 'Hyundai', 'YZA567', 9),
+    (10, 'BMW', 'BCD890', 10),
+    (11, 'Mercedes-Benz', 'EFG345', 111),
+    (12, 'Audi', 'HJKL678', 112),
+    (13, 'Porsche', 'MNO901', 113),
+    (14, 'Ferrari', 'PQR234', 114),
+    (15, 'Lamborghini', 'STU567', 115),
+    (16, 'Bugatti', 'VWX890', 116),
+    (17, 'Rolls-Royce', 'YZA345', 117),
+    (18, 'Maserati', 'BCD678', 118),
+    (19, 'Alfa Romeo', 'EFG901', 119),
+    (20, 'Jaguar', 'HJKL234', 120);
+    
+### Clean
+drop table department;
+drop table employee;
+drop table vehicle;
+
+## Inner Join
+Remember the word inner is default and not mandatory
+SELECT employee.LastName, employee.DepartmentID, department.DepartmentName 
+FROM employee 
+INNER JOIN department ON
+employee.DepartmentID = department.DepartmentID;
