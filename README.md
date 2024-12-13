@@ -1,7 +1,7 @@
-# sql
+# Learn SQL Queries in 10 commands
 
 ## Setup
-** We are going to use sqlite3 for the ease and convenience **
+**We are going to use sqlite3 for the ease and convenience**
 ### Installation of sqlite3
 Follow the instructions
 [SQLITE INSTALLATION PAGES](https://www.sqlite.org/download.html)
@@ -10,6 +10,8 @@ Go to command prompt
 1. sqlite3 "DB Name"
 2. .headers on
 3. .mode box
+4. .databases
+5. .tables
 
 ### Data Preparation
 #### Customers
@@ -76,7 +78,8 @@ VALUES
     (4, 3, 1, 1),
     (5, 4, 2, 2),
     (6, 5, 4, 1);
-
+#### Table Description
+PRAGMA table_info(customers);
 
 ####
           +---------------+
@@ -109,13 +112,27 @@ VALUES
 3. AND: Combines multiple conditions in a WHERE clause. Example: SELECT * FROM customers WHERE country='USA' AND age>25;
 OR: Combines multiple conditions in a WHERE clause. Example: SELECT * FROM customers WHERE country='USA' OR country='Canada';
 4. ORDER BY: Sorts data in ascending or descending order. Example: SELECT * FROM customers ORDER BY last_name ASC;
-5. LIMIT: Limits the number of rows returned. Example: SELECT * FROM customers LIMIT 10;
-OFFSET: Skips a specified number of rows and returns the next rows. Example: SELECT * FROM customers OFFSET 10 LIMIT 10;
+5. LIMIT: Limits the number of rows returned. Example: SELECT * FROM customers LIMIT 2;
+OFFSET: Skips a specified number of rows and returns the next rows. Example: SELECT * FROM customers OFFSET 2 LIMIT 2;
 6. GROUP BY: Groups data by one or more columns. Example: SELECT country, AVG(age) FROM customers GROUP BY country;
 7. HAVING: Filters grouped data based on conditions. Example: SELECT country, AVG(age) FROM customers GROUP BY country HAVING AVG(age)>30;
 8. JOIN: Combines data from two or more tables. Example: SELECT * FROM customers JOIN orders ON customers.customer_id=orders.customer_id;
-9. UNION: Combines the result sets of two or more SELECT queries, removing duplicates.
-10. SUBQUERY: A query nested inside another query, allowing for more complex filtering and data manipulation.
+List all products from John
+SELECT p.product_name
+FROM customers c
+JOIN orders o ON c.customer_id = o.customer_id
+JOIN order_items oi ON o.order_id = oi.order_id
+JOIN products p ON oi.product_id = p.product_id
+WHERE c.first_name = 'John';
+10. UNION: Combines the result sets of two or more SELECT queries, removing duplicates. Example: select * from customers where first_name ='John' union select * from customers where last_name like 'D%';
+11. SUBQUERY: A query nested inside another query, allowing for more complex filtering and data manipulation.
+SELECT *
+FROM customers
+WHERE customer_id IN (
+    SELECT order_id
+    FROM orders
+    WHERE order_date > '2020-01-01'
+);
 
 ### CleanUp
 DROP TABLE customers;
@@ -124,4 +141,4 @@ DROP TABLE products;
 DROP TABLE order_items;
 
 
-We shall do the setup
+![Screenshot of a comment on a GitHub issue showing an image, added in the Markdown, of an Octocat smiling and raising a tentacle.](https://myoctocat.com/assets/images/base-octocat.svg)
