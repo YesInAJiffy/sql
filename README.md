@@ -77,6 +77,32 @@ VALUES
     (5, 4, 2, 2),
     (6, 5, 4, 1);
 
+
+####
+          +---------------+
+          |  Customers    |
+          +---------------+
+                  |
+                  |  Customer ID
+                  v
+          +---------------+
+          |  Orders       |
+          +---------------+
+                  |
+                  |  Order ID
+                  v
+          +---------------+
+          |  Order Items  |
+          +---------------+
+                  |
+                  |  Order Item ID
+                  v
+          +---------------+
+          |  Products     |
+          +---------------+
+
+
+          
 ### SQL Queries
 1. SELECT: Retrieves data from a database table. Example: SELECT * FROM customers;
 2. WHERE: Filters data based on conditions. Example: SELECT * FROM customers WHERE country='USA';
@@ -90,6 +116,12 @@ OFFSET: Skips a specified number of rows and returns the next rows. Example: SEL
 8. JOIN: Combines data from two or more tables. Example: SELECT * FROM customers JOIN orders ON customers.customer_id=orders.customer_id;
 9. UNION: Combines the result sets of two or more SELECT queries, removing duplicates.
 10. SUBQUERY: A query nested inside another query, allowing for more complex filtering and data manipulation.
+
+### CleanUp
+DROP TABLE customers;
+DROP TABLE orders;
+DROP TABLE products;
+DROP TABLE order_items;
 
 
 We shall do the setup
