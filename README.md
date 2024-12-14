@@ -121,12 +121,12 @@ PRAGMA table_info(customers);
    ~~~~sql
    SELECT * FROM customers;
    ~~~~
-3. **WHERE**: Filters data based on conditions. <br>
+2. **WHERE**: Filters data based on conditions. <br>
     Example:
    ~~~~sql
    SELECT * FROM customers WHERE country='USA';
    ~~~~
-5. **AND / OR**: Combines multiple conditions in a WHERE clause. <br>
+3. **AND / OR**: Combines multiple conditions in a WHERE clause. <br>
     Example:
    ~~~~sql
    SELECT * FROM customers WHERE country='USA' AND age>25;<br>
@@ -135,12 +135,12 @@ PRAGMA table_info(customers);
    ~~~~sql
    SELECT * FROM customers WHERE country='USA' OR country='Canada';
    ~~~~
-7. **ORDER BY**: Sorts data in ascending or descending order.<br>
+4. **ORDER BY**: Sorts data in ascending or descending order.<br>
    Example:
    ~~~~sql
    SELECT * FROM customers ORDER BY last_name ASC;
    ~~~~
-9. **LIMIT**: Limits the number of rows returned.<br>
+5. **LIMIT**: Limits the number of rows returned.<br>
    Example:
    ~~~~sql
    SELECT * FROM customers LIMIT 2;
@@ -148,19 +148,35 @@ PRAGMA table_info(customers);
    ~~~~sql
    SELECT * FROM customers ORDER BY last_name ASC limit 2;
    ~~~~
-11. **GROUP BY**: Groups data by one or more columns. It is often used in combination with aggregate functions such as SUM, AVG, MAX, MIN, and COUNT to perform calculations on the grouped data. <br> Example:
+6. **GROUP BY**: Groups data by one or more columns. It is often used in combination with aggregate functions such as SUM, AVG, MAX, MIN, and COUNT to perform calculations on the grouped data. <br> Example:
     ~~~~sql
     SELECT country, AVG(age) FROM customers GROUP BY country;
     ~~~~
     ~~~~sql
     select country, count(age), count(first_name), avg(age), sum(age), max(age), min(age) from customers group by country;
     ~~~~
-13. **HAVING**: Filters grouped data based on conditions. <br>
+7. **HAVING**: Filters grouped data based on conditions. <br>
     Example:
     ~~~~sql
     SELECT country, AVG(age) FROM customers GROUP BY country HAVING AVG(age)>30;
     ~~~~
-15. **JOIN**: Combines data from two or more tables. <br>
+8. **UNION**: Combines the result sets of two or more SELECT queries, removing duplicates. <br>
+    Example:
+    ~~~~sql
+    select * from customers where first_name ='John' union select * from customers where last_name like 'D%';
+    ~~~~
+9. **SUBQUERY**: A query nested inside another query, allowing for more complex filtering and data manipulation. <br>
+    Example: <br>
+~~~~sql
+SELECT *
+FROM customers
+WHERE customer_id IN (
+    SELECT order_id
+    FROM orders
+    WHERE order_date > '2020-01-01'
+);
+~~~~
+10. **JOIN**: Combines data from two or more tables. <br>
     Example:
     ~~~~sql
     SELECT * FROM customers JOIN orders ON customers.customer_id=orders.customer_id;
@@ -196,22 +212,7 @@ ORDER BY
     o.order_date;  -- You can change this based on how you want to order the results
 ~~~~
 
-11. **UNION**: Combines the result sets of two or more SELECT queries, removing duplicates. <br>
-    Example:
-    ~~~~sql
-    select * from customers where first_name ='John' union select * from customers where last_name like 'D%';
-    ~~~~
-13. **SUBQUERY**: A query nested inside another query, allowing for more complex filtering and data manipulation. <br>
-    Example: <br>
-~~~~sql
-SELECT *
-FROM customers
-WHERE customer_id IN (
-    SELECT order_id
-    FROM orders
-    WHERE order_date > '2020-01-01'
-);
-~~~~
+
 
 ### CleanUp
 ~~~~sql
@@ -223,97 +224,6 @@ DROP TABLE order_items;
 
 ![Screenshot of a comment on a GitHub issue showing an image, added in the Markdown, of an Octocat smiling and raising a tentacle.](https://myoctocat.com/assets/images/base-octocat.svg)
 
-
-### Underanding of Joins
-
-## Data Creation
-~~~~sql
-CREATE TABLE department(
-    DepartmentID INT PRIMARY KEY NOT NULL,
-    DepartmentName VARCHAR(20)
-);
-
-CREATE TABLE employee (
-    EmployeeID INT PRIMARY KEY NOT NULL,
-    LastName VARCHAR(20),
-    DepartmentID INT REFERENCES department(DepartmentID)
-);
-
-CREATE TABLE Vehicle (
-    VehicleID INT PRIMARY KEY NOT NULL,
-    Make VARCHAR(20),
-    Registration VARCHAR(20),
-    EmployeeID INT REFERENCES employee(EmployeeID)
-);
-
-
-INSERT INTO department
-VALUES (31, 'Sales'),
-       (33, 'Engineering'),
-       (34, 'Clerical'),
-       (35, 'Arts'),
-       (36, 'Sciences'),
-       (37, 'Music'),
-       (38, 'Robotics'),
-       (39, 'Programming'),
-       (40, 'ML');
-
-INSERT INTO employee
-VALUES (111, 'Rafferty', 31),
-       (112, 'Jones', 33),
-       (113, 'Heisenberg', 33),
-       (114, 'Robinson', 34),
-       (115, 'Smith', 34),
-       (116, 'Rama', 39),
-       (117, 'Shyam', 37),
-       (118, 'Seth', 44),
-       (119, 'Srinath', 34),
-       (120, 'Williams', NULL);
-
-INSERT INTO Vehicle (VehicleID, Make, Registration, EmployeeID)
-VALUES
-    (1, 'Toyota', 'ABC123', 1),
-    (2, 'Honda', 'DEF456', 2),
-    (3, 'Ford', 'GHI789', 3),
-    (4, 'Nissan', 'JKL012', 4),
-    (5, 'Mazda', 'MNO345', 5),
-    (6, 'Subaru', 'PQR678', 6),
-    (7, 'Volkswagen', 'STU901', 7),
-    (8, 'Kia', 'VWX234', 8),
-    (9, 'Hyundai', 'YZA567', 9),
-    (10, 'BMW', 'BCD890', 10),
-    (11, 'Mercedes-Benz', 'EFG345', 111),
-    (12, 'Audi', 'HJKL678', 112),
-    (13, 'Porsche', 'MNO901', 113),
-    (14, 'Ferrari', 'PQR234', 114),
-    (15, 'Lamborghini', 'STU567', 115),
-    (16, 'Bugatti', 'VWX890', 116),
-    (17, 'Rolls-Royce', 'YZA345', 117),
-    (18, 'Maserati', 'BCD678', 118),
-    (19, 'Alfa Romeo', 'EFG901', 119),
-    (20, 'Jaguar', 'HJKL234', 120);
-~~~~
-
-### Clean
-~~~~sql
-drop table department;
-drop table employee;
-drop table vehicle;
-~~~~
-## Inner Join
-~~~~sql
-SELECT employee.LastName, employee.DepartmentID, department.DepartmentName 
-FROM employee 
-INNER JOIN department ON
-employee.DepartmentID = department.DepartmentID;
-~~~~
-~~~~sql
-SELECT employee.LastName, employee.DepartmentID, department.DepartmentName , vehicle.Make, vehicle.Registration
-FROM employee 
-INNER JOIN department ON
-employee.DepartmentID = department.DepartmentID
-Join Vehicle ON vehicle.employeeID = employee.employeeID;
-~~~~
 
 # NOTE
 1. SQLite does not enforce referential integrity in the same way that some other databases do, and you will need to take steps to ensure that your data is consistent and valid. This is different from some other databases, such as MySQL or PostgreSQL, which enforce referential integrity at the database level. In these databases, if you try to insert a row into a table that violates a foreign key constraint, the database will prevent the insertion from occurring.
