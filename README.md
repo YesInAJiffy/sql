@@ -60,11 +60,11 @@ CREATE TABLE products (
 
 INSERT INTO products (product_id, product_name, price)
 VALUES
-    (1, 'Product A', 10.99),
-    (2, 'Product B', 9.99),
-    (3, 'Product C', 12.99),
-    (4, 'Product D', 11.99),
-    (5, 'Product E', 8.99);
+    (1, 'Cake', 10.99),
+    (2, 'Vegetables', 9.99),
+    (3, 'Fruits', 12.99),
+    (4, 'Energy Drinks', 11.99),
+    (5, 'Eggs', 8.99);
 ~~~~
 #### Order Items
 ~~~~sql
