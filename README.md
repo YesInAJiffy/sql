@@ -148,14 +148,13 @@ PRAGMA table_info(customers);
    ~~~~sql
    SELECT * FROM customers ORDER BY last_name ASC limit 2;
    ~~~~
-11. **GROUP BY**: Groups data by one or more columns. <br>
-   Example:
-~~~~sql
-SELECT country, AVG(age) FROM customers GROUP BY country;
-~~~~
-~~~~sql
-   select country, count(age), count(first_name), avg(age), sum(age), max(age), min(age) from customers group by country;
-~~~~
+11. **GROUP BY**: Groups data by one or more columns. It is often used in combination with aggregate functions such as SUM, AVG, MAX, MIN, and COUNT to perform calculations on the grouped data. <br> Example:
+    ~~~~sql
+    SELECT country, AVG(age) FROM customers GROUP BY country;
+    ~~~~
+    ~~~~sql
+    select country, count(age), count(first_name), avg(age), sum(age), max(age), min(age) from customers group by country;
+    ~~~~
 13. **HAVING**: Filters grouped data based on conditions. <br>
     Example:
     ~~~~sql
