@@ -129,7 +129,7 @@ PRAGMA table_info(customers);
 3. **AND / OR**: Combines multiple conditions in a WHERE clause. <br>
     Example:
    ~~~~sql
-   SELECT * FROM customers WHERE country='USA' AND age>25;<br>
+   SELECT * FROM customers WHERE country='USA' AND age>25;
    ~~~~
     Example:
    ~~~~sql
